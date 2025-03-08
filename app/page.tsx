@@ -1,17 +1,26 @@
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 
+const recentPosts: BlogPost[] = [
+  {
+    title: "Building Modern Web Applications with Next.js and TypeScript",
+    slug: "modern-web-development-nextjs-typescript",
+    date: "March 8, 2024",
+    excerpt: "A deep dive into creating performant, type-safe web applications using Next.js 14 and TypeScript, with practical examples and best practices.",
+  },
+]
+
 export default function Home() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
       <header className="mb-10">
-        <h1 className="text-2xl font-bold mb-1">John Doe</h1>
-        <p className="text-muted-foreground">Writer, developer, and thinker.</p>
+        <h1 className="text-2xl font-bold mb-1">Gabriel Keller</h1>
+        <p className="text-muted-foreground">Full Stack Software Engineer | TypeScript & Python Developer</p>
       </header>
 
       <main>
         <section className="mb-12">
-          <h2 className="text-xl font-semibold mb-4">Recent Posts</h2>
+          <h2 className="text-xl font-semibold mb-4">Latest Post</h2>
           <div className="space-y-6">
             {recentPosts.map((post) => (
               <article key={post.slug} className="space-y-2">
@@ -35,19 +44,25 @@ export default function Home() {
         <section>
           <h2 className="text-xl font-semibold mb-4">About Me</h2>
           <p className="mb-4">
-            Hello! I'm John, a writer and developer based in San Francisco. I write about technology, philosophy, and
-            the intersection between the two.
+            Hello! I'm Gabriel, a full-stack software engineer with a passion for building elegant solutions to complex problems.
+            I specialize in TypeScript, Python, and modern web technologies, with experience in developing scalable applications
+            and developer tools.
+          </p>
+          <p className="mb-4">
+            Currently, I focus on creating efficient, type-safe applications using technologies like Next.js, React, and TypeScript
+            on the frontend, while leveraging Python and Node.js for backend services. I'm particularly interested in developer
+            experience, type systems, and building tools that make developers more productive.
           </p>
           <p>
-            This is a simple, content-focused personal website inspired by the minimalist design principles of Bear
-            Blog. No unnecessary distractions, just pure content.
+            When I'm not coding, you can find me exploring new technologies, contributing to open-source projects,
+            or writing about software development best practices.
           </p>
         </section>
       </main>
 
       <footer className="mt-16 pt-6 border-t border-muted">
         <div className="flex justify-between items-center">
-          <div className="text-sm text-muted-foreground">© {new Date().getFullYear()} John Doe</div>
+          <div className="text-sm text-muted-foreground">© {new Date().getFullYear()} Gabriel Keller</div>
           <nav>
             <ul className="flex space-x-4 text-sm">
               <li>
@@ -61,8 +76,8 @@ export default function Home() {
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:underline">
-                  Contact
+                <Link href="https://github.com/gjkeller" className="hover:underline">
+                  GitHub
                 </Link>
               </li>
             </ul>
@@ -72,25 +87,4 @@ export default function Home() {
     </div>
   )
 }
-
-const recentPosts = [
-  {
-    title: "The Value of Minimalism in Digital Design",
-    slug: "minimalism-in-digital-design",
-    date: "May 15, 2023",
-    excerpt: "Exploring how minimalist design principles can create more effective digital experiences.",
-  },
-  {
-    title: "Writing as a Tool for Thinking",
-    slug: "writing-as-thinking-tool",
-    date: "April 22, 2023",
-    excerpt: "How the process of writing helps clarify thoughts and develop new ideas.",
-  },
-  {
-    title: "The Future of Personal Websites",
-    slug: "future-of-personal-websites",
-    date: "March 10, 2023",
-    excerpt: "Why personal websites remain relevant in an age of social media platforms.",
-  },
-]
 

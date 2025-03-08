@@ -1,79 +1,107 @@
 import Link from "next/link"
+import { ArrowLeft } from "lucide-react"
 
-export default function AboutPage() {
+export default function About() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
-      <header className="mb-10">
-        <Link href="/" className="text-sm hover:underline mb-4 inline-block">
-          ← Back to home
-        </Link>
-        <h1 className="text-2xl font-bold">About Me</h1>
-      </header>
+      <Link href="/" className="inline-flex items-center text-sm text-muted-foreground hover:underline mb-8">
+        <ArrowLeft className="mr-1 h-4 w-4" /> Back to home
+      </Link>
 
-      <main className="prose prose-gray max-w-none">
-        <p>
-          Hello! I'm John Doe, a writer, developer, and perpetual learner based in San Francisco. This website is my
-          digital home—a place to share my thoughts, projects, and interests.
-        </p>
+      <article className="prose prose-slate max-w-none">
+        <h1 className="text-3xl font-bold mb-6">About Me</h1>
 
-        <h2>Background</h2>
-        <p>
-          I studied Computer Science and Philosophy at Stanford University, where I became fascinated by the
-          intersection of technology and human experience. After graduation, I worked as a software engineer at several
-          tech companies before transitioning to focus more on writing and independent projects.
-        </p>
+        <section className="mb-8">
+          <h2>Professional Background</h2>
+          <p>
+            I'm Gabriel Keller, a full-stack software engineer who thrives on building efficient, scalable solutions
+            to complex technical challenges. With a strong foundation in both frontend and backend development,
+            I specialize in creating robust applications that prioritize developer experience and code quality.
+          </p>
+        </section>
 
-        <h2>What I Do</h2>
-        <p>Currently, I split my time between:</p>
-        <ul>
-          <li>Writing essays on technology, philosophy, and digital culture</li>
-          <li>Developing open-source software projects</li>
-          <li>Consulting with startups on product strategy and design</li>
-          <li>Reading widely across disciplines</li>
-        </ul>
+        <section className="mb-8">
+          <h2>Technical Expertise</h2>
+          <div className="not-prose">
+            <div className="grid grid-cols-2 gap-4 mb-6">
+              <div className="space-y-2">
+                <h3 className="font-semibold">Frontend</h3>
+                <ul className="list-none p-0 space-y-1">
+                  <li>• TypeScript & JavaScript</li>
+                  <li>• React & Next.js</li>
+                  <li>• TailwindCSS</li>
+                  <li>• Frontend Testing (Jest, RTL)</li>
+                </ul>
+              </div>
+              <div className="space-y-2">
+                <h3 className="font-semibold">Backend</h3>
+                <ul className="list-none p-0 space-y-1">
+                  <li>• Python</li>
+                  <li>• Node.js</li>
+                  <li>• RESTful APIs</li>
+                  <li>• Database Design</li>
+                </ul>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <h3 className="font-semibold">Developer Tools</h3>
+                <ul className="list-none p-0 space-y-1">
+                  <li>• Git & Version Control</li>
+                  <li>• CI/CD Pipelines</li>
+                  <li>• Docker</li>
+                  <li>• Cloud Platforms</li>
+                </ul>
+              </div>
+              <div className="space-y-2">
+                <h3 className="font-semibold">Best Practices</h3>
+                <ul className="list-none p-0 space-y-1">
+                  <li>• Clean Code</li>
+                  <li>• Test-Driven Development</li>
+                  <li>• Code Review</li>
+                  <li>• Documentation</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
 
-        <h2>This Website</h2>
-        <p>
-          I created this website as a place to share my writing without the distractions and constraints of social media
-          platforms. It's deliberately minimal in design, focusing attention on the content rather than flashy visuals
-          or unnecessary features.
-        </p>
-        <p>
-          The site is built with Next.js and styled with Tailwind CSS, drawing inspiration from the clean,
-          content-focused aesthetic of platforms like Bear Blog.
-        </p>
+        <section className="mb-8">
+          <h2>Current Focus</h2>
+          <p>
+            I'm currently focused on developing type-safe, performant web applications using modern technologies.
+            My work involves creating intuitive user interfaces with React and Next.js, while ensuring robust
+            backend systems using Python and Node.js. I'm particularly passionate about:
+          </p>
+          <ul>
+            <li>Building developer tools that enhance productivity</li>
+            <li>Implementing type-safe architectures</li>
+            <li>Creating efficient, maintainable codebases</li>
+            <li>Contributing to open-source projects</li>
+          </ul>
+        </section>
 
-        <h2>Connect</h2>
-        <p>
-          I'm always interested in connecting with like-minded individuals. Feel free to reach out via email at
-          john@example.com or find me on Twitter @johndoe.
-        </p>
-      </main>
+        <section className="mb-8">
+          <h2>Beyond Coding</h2>
+          <p>
+            When I'm not writing code, I enjoy staying up-to-date with the latest developments in software
+            engineering and contributing to the developer community. I believe in continuous learning and
+            regularly explore new technologies and methodologies to improve my craft.
+          </p>
+        </section>
 
-      <footer className="mt-16 pt-6 border-t border-muted">
-        <div className="flex justify-between items-center">
-          <div className="text-sm text-muted-foreground">© {new Date().getFullYear()} John Doe</div>
-          <nav>
-            <ul className="flex space-x-4 text-sm">
-              <li>
-                <Link href="/about" className="hover:underline">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="hover:underline">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover:underline">
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </footer>
+        <section>
+          <h2>Connect</h2>
+          <p>
+            I'm always interested in connecting with fellow developers and discussing interesting technical
+            challenges. You can find me on{" "}
+            <Link href="https://github.com/gjkeller" className="text-primary hover:underline">
+              GitHub
+            </Link>
+            , where I contribute to various projects and share my work.
+          </p>
+        </section>
+      </article>
     </div>
   )
 }
