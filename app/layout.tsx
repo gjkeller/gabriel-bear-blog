@@ -1,28 +1,31 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import "./globals.css"
+import type React from "react";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "John Doe | Personal Website",
-  description: "The personal website and blog of John Doe",
-    generator: 'v0.dev'
-}
+  title: "Gabriel Keller | Personal Website",
+  description: "The personal website and blog of Gabriel Keller",
+  generator: "v0.dev",
+  icons: {
+    icon: "/icon.png.jpeg",
+  },
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-white text-gray-900 antialiased`}>{children}</body>
+      <body className={`${inter.className} bg-white text-gray-900 antialiased`}>
+        {children}
+      </body>
     </html>
-  )
+  );
 }
 
-
-
-import './globals.css'
+import "./globals.css";

@@ -1,5 +1,9 @@
-import Link from "next/link"
-import { EnvelopeClosedIcon, GitHubLogoIcon, LinkedInLogoIcon } from "@radix-ui/react-icons"
+import Link from "next/link";
+import {
+  EnvelopeClosedIcon,
+  GitHubLogoIcon,
+  LinkedInLogoIcon,
+} from "@radix-ui/react-icons";
 
 export default function ContactPage() {
   return (
@@ -12,10 +16,15 @@ export default function ContactPage() {
       </header>
 
       <main>
-        <p className="mb-8">Feel free to reach out through any of the following channels:</p>
+        <p className="mb-8">
+          Feel free to reach out through any of the following channels:
+        </p>
 
         <div className="space-y-6">
-          <a href="mailto:me@keller.cv" className="flex items-center gap-3 text-lg hover:underline">
+          <a
+            href="mailto:me@keller.cv"
+            className="flex items-center gap-3 text-lg hover:underline"
+          >
             <EnvelopeClosedIcon className="h-5 w-5" />
             <span>me@keller.cv</span>
           </a>
@@ -44,7 +53,9 @@ export default function ContactPage() {
 
       <footer className="mt-16 pt-6 border-t border-muted">
         <div className="flex justify-between items-center">
-          <div className="text-sm text-muted-foreground">© {new Date().getFullYear()} John Doe</div>
+          <div className="text-sm text-muted-foreground">
+            © {new Date().getFullYear()} Gabriel Keller
+          </div>
           <nav>
             <ul className="flex space-x-4 text-sm">
               <li>
@@ -67,6 +78,5 @@ export default function ContactPage() {
         </div>
       </footer>
     </div>
-  )
+  );
 }
-
