@@ -6,11 +6,11 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Gabriel Keller | Personal Website",
-  description: "The personal website and blog of Gabriel Keller",
-  generator: "v0.dev",
+  title: "Gabriel Keller | Software Engineer",
+  description:
+    "Gabriel Keller - Full Stack Software Engineer. Building things with TypeScript, Python, and modern web technologies.",
   icons: {
-    icon: "/icon.png.jpeg",
+    icon: "/favicon.png",
   },
 };
 
@@ -27,5 +27,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-import "./globals.css";
