@@ -1,110 +1,155 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { getBlogPost, getAllSlugs } from "@/lib/mdx";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { useMDXComponents } from "@/components/mdx-components";
+import remarkGfm from "remark-gfm";
+import rehypeHighlight from "rehype-highlight";
+import { ArrowLeft, Calendar, Clock } from "lucide-react";
 
-interface BlogPostParams {
+interface BlogPostPageProps {
   params: {
     slug: string;
   };
 }
 
-export default function BlogPost({ params }: BlogPostParams) {
-  const post = allPosts.find((post) => post.slug === params.slug);
+export async function generateStaticParams() {
+  const slugs = getAllSlugs();
+  return slugs.map((slug) => ({
+    slug,
+  }));
+}
+
+export async function generateMetadata({ params }: BlogPostPageProps) {
+  const post = getBlogPost(params.slug);
 
   if (!post) {
-    return <div>Post not found</div>;
+    return {
+      title: "Post Not Found",
+      description: "The requested blog post could not be found.",
+    };
   }
 
+  return {
+    title: `${post.title} | Gabriel Keller`,
+    description: post.description || `Read ${post.title} by Gabriel Keller`,
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: "article",
+      publishedTime: post.date,
+      authors: [post.author || "Gabriel Keller"],
+      tags: post.tags,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description,
+    },
+  };
+}
+
+export default function BlogPostPage({ params }: BlogPostPageProps) {
+  const post = getBlogPost(params.slug);
+
+  if (!post) {
+    notFound();
+  }
+
+  const components = useMDXComponents({});
+
+  const formattedDate = new Date(post.date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   return (
-    <div className="max-w-2xl mx-auto px-4 py-10">
-      <header className="mb-10">
-        <Link
-          href="/blog"
-          className="text-sm hover:underline mb-4 inline-block"
-        >
-          ← Back to blog
-        </Link>
-        <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
-        <p className="text-muted-foreground">{post.date}</p>
-      </header>
+    <div className="min-h-screen bg-white">
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        {/* Navigation */}
+        <header className="mb-8 pb-4 border-b border-gray-200">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to Home
+          </Link>
+        </header>
 
-      <main className="prose prose-gray max-w-none">{post.content}</main>
+        {/* Article Header */}
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            {post.title}
+          </h1>
 
-      <footer className="mt-16 pt-6 border-t border-muted">
-        <div className="flex justify-between items-center">
-          <div className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Gabriel Keller
+          {post.description && (
+            <p className="text-xl text-gray-600 mb-6">{post.description}</p>
+          )}
+
+          <div className="flex items-center gap-6 text-sm text-gray-500">
+            <div className="flex items-center gap-2">
+              <Calendar className="h-4 w-4" />
+              <time dateTime={post.date}>{formattedDate}</time>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Clock className="h-4 w-4" />
+              <span>{post.readingTime.text}</span>
+            </div>
+
+            {post.author && (
+              <div>
+                <span>by {post.author}</span>
+              </div>
+            )}
           </div>
-          <nav>
-            <ul className="flex space-x-4 text-sm">
-              <li>
-                <Link href="/about" className="hover:underline">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="hover:underline">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover:underline">
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </nav>
+
+          {post.tags && post.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-4">
+              {post.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
-      </footer>
+
+        {/* Article Content */}
+        <article className="prose prose-lg max-w-none">
+          <MDXRemote
+            source={post.content}
+            components={components}
+            options={{
+              mdxOptions: {
+                remarkPlugins: [remarkGfm],
+                rehypePlugins: [rehypeHighlight],
+              },
+            }}
+          />
+        </article>
+
+        {/* Footer */}
+        <footer className="mt-16 pt-8 border-t border-gray-200">
+          <div className="flex justify-between items-center">
+            <Link
+              href="/"
+              className="text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              ← Back to Home
+            </Link>
+
+            <div className="text-sm text-gray-500">
+              © {new Date().getFullYear()} Gabriel Keller
+            </div>
+          </div>
+        </footer>
+      </div>
     </div>
   );
 }
-
-const allPosts = [
-  {
-    title: "The Value of Minimalism in Digital Design",
-    slug: "minimalism-in-digital-design",
-    date: "May 15, 2023",
-    excerpt:
-      "Exploring how minimalist design principles can create more effective digital experiences.",
-    content: (
-      <>
-        <p>
-          In a world of increasingly complex digital interfaces, minimalism
-          stands as a counterpoint—a design philosophy that embraces simplicity,
-          clarity, and purpose. This approach isn't about stripping away
-          features or functionality, but rather about distilling an experience
-          down to its essential elements.
-        </p>
-        <p>
-          Minimalist design focuses on removing unnecessary elements,
-          emphasizing negative space, and creating clear visual hierarchies. The
-          result is often an interface that feels more intuitive, loads faster,
-          and creates less cognitive load for users.
-        </p>
-        <h2>Core Principles of Minimalist Design</h2>
-        <ul>
-          <li>
-            <strong>Simplicity:</strong> Eliminate unnecessary elements and
-            focus on what truly matters.
-          </li>
-          <li>
-            <strong>Clarity:</strong> Make the purpose and functionality of each
-            element immediately obvious.
-          </li>
-          <li>
-            <strong>Purposeful negative space:</strong> Use whitespace
-            strategically to create focus and improve readability.
-          </li>
-          <li>
-            <strong>Typography as a central element:</strong> Rely on
-            well-chosen fonts and thoughtful typography to communicate.
-          </li>
-        </ul>
-        <p>
-          When implemented thoughtfully, minimalist design doesn't feel empty or
-          lacking—it feels intentional and focused. It creates digital spaces
-          where content can breathe and users can focus without distraction.
-        </p>
-      </>
-    ),
-  },
-];
