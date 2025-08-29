@@ -79,7 +79,7 @@ export function getBlogPost(slug: string): Post | null {
       content,
       readingTime: readingTime(content),
     };
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -106,7 +106,7 @@ export function getPage(slug: string): Page | null {
       slug,
       content,
     };
-  } catch (error) {
+  } catch {
     return null;
   }
 }

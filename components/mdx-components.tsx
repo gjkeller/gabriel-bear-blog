@@ -75,20 +75,29 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     img: ({
       src,
       alt,
+      width,
+      height,
       ...props
-    }: {
-      src?: string;
-      alt?: string;
-      [key: string]: any;
-    }) => (
+    }: React.ImgHTMLAttributes<HTMLImageElement>) => (
       <div style={{ margin: "2rem 0", textAlign: "center" }}>
         <Image
-          src={src || ""}
+          src={typeof src === "string" ? src : ""}
           alt={alt || ""}
-          width={800}
-          height={400}
+          width={
+            typeof width === "number"
+              ? width
+              : typeof width === "string"
+                ? parseInt(width) || 800
+                : 800
+          }
+          height={
+            typeof height === "number"
+              ? height
+              : typeof height === "string"
+                ? parseInt(height) || 400
+                : 400
+          }
           style={{ borderRadius: "0.5rem", maxWidth: "100%", height: "auto" }}
-          {...props}
         />
         {alt && (
           <p
